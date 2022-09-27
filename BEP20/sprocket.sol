@@ -352,6 +352,7 @@ contract Sprocket is Context, IBEP20, Ownable {
     _name = "Sprocket";
     _symbol = "SPROCKET";
     _decimals = 18;
+    _maxSupply = 10000000000000000000000000000;    
     _totalSupply = 10000000000000000000000000000;
     _balances[msg.sender] = _totalSupply;
 
@@ -533,6 +534,7 @@ contract Sprocket is Context, IBEP20, Ownable {
    */
   function _mint(address account, uint256 amount) internal {
     require(account != address(0), "BEP20: mint to the zero address");
+    require(_totalSupply + amount <= _maxSupply, "BEP20: max supply reached");
 
     _totalSupply = _totalSupply.add(amount);
     _balances[account] = _balances[account].add(amount);
